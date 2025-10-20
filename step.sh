@@ -255,7 +255,7 @@ if [ "${is_debug}" = true ] ; then
     submit_cmd="$submit_cmd --debug"
 fi
 
-echo_details "$submit_cmd"
+$echo_details
 
 # Execute the command and capture the output
 output=$(eval "${submit_cmd}" 2>&1)
