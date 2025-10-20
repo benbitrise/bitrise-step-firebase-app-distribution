@@ -260,6 +260,8 @@ echo_details "$submit_cmd"
 # Execute the command and capture the output
 output=$(eval "${submit_cmd}" 2>&1)
 
+echo "$output"
+
 # Adjust the number of `sed -n 2p` if the position of the URL changes in the output
 FIREBASE_BITRISE_CONSOLE_URL=$(echo $output | grep -Eo "(http|https)://[a-zA-Z0-9./?=-_%:-]*" | sed -n 2p)
 echo_info "firebase console url: ${FIREBASE_BITRISE_CONSOLE_URL}"
@@ -268,8 +270,6 @@ envman add --key FIREBASE_BITRISE_CONSOLE_URL --value "${FIREBASE_BITRISE_CONSOL
 FIREBASE_BITRISE_APP_DISTRIBUTION_URL=$(echo $output | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" | sed -n 3p)
 echo_info "firebase app distribution url: ${FIREBASE_BITRISE_APP_DISTRIBUTION_URL}"
 envman add --key FIREBASE_BITRISE_APP_DISTRIBUTION_URL --value "${FIREBASE_BITRISE_APP_DISTRIBUTION_URL}"
-
-echo "$output"
 
 # Set output variables
 extract_release_id "$output"
